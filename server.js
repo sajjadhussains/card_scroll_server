@@ -11,10 +11,13 @@ const port = process.env.PORT;
 app.use(cors());
 
 // MongoDB configuration
-const client = new MongoClient(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.8adqzd4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Initialize Multer for in-memory storage
 const storage = multer.memoryStorage();
