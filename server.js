@@ -34,7 +34,9 @@ client
     console.log("Connected to MongoDB");
   })
   .catch((error) => console.error("Error connecting to MongoDB:", error));
-
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
 app.post("/api/upload", upload.array("files"), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
