@@ -89,32 +89,6 @@ app.get("/api/files", async (req, res) => {
   }
 });
 
-// Endpoint to download a specific file by filename
-app.get("/api/files/:filename", async (req, res) => {
-  try {
-    const file = await metadataCollection.findOne({
-      filename: req.params.filename,
-    });
-
-    if (!file) {
-      return res.status(404).json({ error: "File not found" });
-    }
-
-    const downloadStream = bucket.openDownloadStreamByName(req.params.filename);
-
-    res.setHeader("Content-Type", file.contentType);
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename="${file.filename}"`
-    );
-
-    downloadStream.pipe(res);
-  } catch (error) {
-    console.error("Error downloading file:", error);
-    res.status(500).json({ error: "Error downloading file" });
-  }
-});
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
